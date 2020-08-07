@@ -1,19 +1,16 @@
 ﻿using UnityEngine;
 
-public class obstaclemovement : MonoBehaviour
+public class Obstaclemovement : MonoBehaviour
 {
+     
     public Rigidbody obs;
     public float ObstacleForce = 50f;
-    private Vector2 screenbounds;
-
-    public void Start()
-    {
-        screenbounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
-    }
-
+    
+    
     public void Update()
     {
-        if(transform.position.z < screenbounds.y - 30)
+       
+        if(transform.position.z < Camera.main.transform.position.z - 30)
         {
             Destroy(this.gameObject);
         }

@@ -3,7 +3,7 @@
 public class ObstacleCollision : MonoBehaviour
 {
 
-    public obstaclemovement movement;
+    public Obstaclemovement movement;
     private void OnCollisionEnter(Collision collisionInfo)
     {
         if (collisionInfo.collider.name == "Player")

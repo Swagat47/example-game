@@ -4,36 +4,49 @@ using UnityEngine.SceneManagement;
 public class playermovement : MonoBehaviour
 {
     public Rigidbody rb;
-    
-    public float SideForce = 500f;
+
+    public float RightForce = 50f;
+    public float LeftForce = -50f;
 
     private void Update()
     {
-        if (rb.transform.position.y < -5)
+        if (rb.transform.position.y < 209)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
-    }
-    void FixedUpdate()
-    {
-        if (Input.GetKey("d"))
-        {
-            rb.AddForce(SideForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
-        } 
 
-        if (Input.GetKey("a"))
+        
+        if (Input.touchCount > 0)
         {
-            rb.AddForce(-SideForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
+            Touch touch = Input.GetTouch(0);
+
+            if (touch.phase == TouchPhase.Stationary)
+            {
+                double HalfScreen = Screen.width / 2.0;
+                Vector3 touchPos = Camera.main.WorldToScreenPoint(touch.position);
+                
+                if (touchPos.x > HalfScreen)
+                {
+                    
+                    rb.AddForce(RightForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
+                }
+
+
+                else if (touchPos.x < HalfScreen)
+                {
+                    
+                    rb.AddForce(LeftForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
+                }
+            }
         }
     }
+    
 
     private void OnCollisionEnter(Collision collisionInfo)
     {
-        if (collisionInfo.collider.tag == "Obstacle")
+        if (collisionInfo.collider.CompareTag("Obstacle"))
         {
-            FindObjectOfType<obstaclemovement>().enabled = false;
-            FindObjectOfType<ObstacleSpawner>().enabled = false;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            SceneManager.LoadScene(2);
         }
 
         

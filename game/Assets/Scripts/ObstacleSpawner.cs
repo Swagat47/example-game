@@ -5,7 +5,7 @@ public class ObstacleSpawner : MonoBehaviour
     public Transform[] spawnPoints;
     public GameObject Obstacle;
     private float TimetoSpawn = 1f;
-    private float TimebetweenOBSset = 2.95f;
+    private float TimebetweenOBSset = 4f;
 
 
     void Update()
